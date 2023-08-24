@@ -5,7 +5,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-lunar-23.04-amd64-server-*"]
   }
 
   filter {
@@ -23,7 +23,7 @@ resource "aws_instance" "web_zone_a" {
   instance_type = var.instance_type
 
   subnet_id       = aws_subnet.private_subnet_a.id
-  security_groups = [aws_security_group.ec2_sg.id]
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
 
   user_data = <<-EOF
   #!/bin/bash
@@ -35,7 +35,11 @@ resource "aws_instance" "web_zone_a" {
   EOF
 
   tags = {
-    Name = "instructors-alb-webserver-zone-a-${count.index}"
+    Name = "${var.naming_prefix}-webserver-zone-a-${count.index}"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 
 }
@@ -46,8 +50,8 @@ resource "aws_instance" "web_zone_b" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
 
-  subnet_id = aws_subnet.private_subnet_b.id
-  security_groups = [aws_security_group.ec2_sg.id]
+  subnet_id       = aws_subnet.private_subnet_b.id
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
 
   user_data = <<-EOF
   #!/bin/bash
@@ -59,7 +63,11 @@ resource "aws_instance" "web_zone_b" {
   EOF
 
   tags = {
-    Name = "instructors-alb-webserver-zone-b-${count.index}"
+    Name = "${var.naming_prefix}-webserver-zone-b-${count.index}"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 
 }

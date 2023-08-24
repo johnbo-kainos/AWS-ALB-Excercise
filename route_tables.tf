@@ -6,7 +6,7 @@ resource "aws_route_table" "public_route_table" {
     gateway_id = aws_internet_gateway.int_gw.id
   }
   tags = {
-    Name = "instructor-alb-public-route-table"
+    Name = "${var.naming_prefix}-public-route-table"
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_route_table" "private_route_table_a" {
     gateway_id = aws_nat_gateway.nat_gw_zone_a.id
   }
   tags = {
-    Name = "instructor-alb-private-route-table-a"
+    Name = "${var.naming_prefix}-private-route-table-a"
   }
 }
 
@@ -52,7 +52,7 @@ resource "aws_route_table" "private_route_table_b" {
     gateway_id = aws_nat_gateway.nat_gw_zone_b.id
   }
   tags = {
-    Name = "instructor-alb-private-route-table-b"
+    Name = "${var.naming_prefix}-private-route-table-b"
   }
 }
 

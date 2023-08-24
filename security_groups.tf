@@ -1,13 +1,13 @@
 //Security Group rule that is applied to the ALB
 resource "aws_security_group" "alb_sg" {
-  name        = "instructor-alb-sg"
+  name        = "${var.naming_prefix}-alb-sg"
   description = "Security group for ALB"
   vpc_id      = aws_vpc.vpc.id
 
-  // Allow port 80 (HTTP) from anywhere
+  // Allow port 443 (HTTPS) from anywhere
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] // Allow traffic from anywhere
   }
@@ -22,7 +22,7 @@ resource "aws_security_group" "alb_sg" {
 }
 
 resource "aws_security_group" "ec2_sg" {
-  name        = "instructor-ec2-sg"
+  name        = "${var.naming_prefix}-ec2-sg"
   description = "Security group for EC2 instances"
   vpc_id      = aws_vpc.vpc.id
 

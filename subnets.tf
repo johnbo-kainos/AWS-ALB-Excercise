@@ -8,7 +8,7 @@ resource "aws_subnet" "public_subnet_a" {
   availability_zone       = "${var.region}a"
 
   tags = {
-    Name = "instructor-public-alb-subnet-az-a"
+    Name = "${var.naming_prefix}-public-alb-subnet-az-a"
   }
 }
 //Public Subnet in Availibilty Zone B
@@ -19,7 +19,7 @@ resource "aws_subnet" "public_subnet_b" {
   availability_zone       = "${var.region}b"
 
   tags = {
-    Name = "instructor-public-alb-subnet-az-b"
+    Name = "${var.naming_prefix}-public-alb-subnet-az-b"
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_subnet" "private_subnet_a" {
   availability_zone = "${var.region}a"
 
   tags = {
-    Name = "instructor-private-alb-subnet-az-a"
+    Name = "${var.naming_prefix}-private-alb-subnet-az-a"
   }
 }
 
@@ -43,6 +43,6 @@ resource "aws_subnet" "private_subnet_b" {
   availability_zone = "${var.region}b"
 
   tags = {
-    Name = "instructor-private-alb-subnet-az-b"
+    Name = "${var.naming_prefix}-private-alb-subnet-az-b"
   }
 }

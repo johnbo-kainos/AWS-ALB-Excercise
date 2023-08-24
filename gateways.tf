@@ -3,7 +3,7 @@ resource "aws_internet_gateway" "int_gw" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "instructor-alb-igw"
+    Name = "${var.naming_prefix}-igw"
   }
 }
 
@@ -12,7 +12,7 @@ resource "aws_eip" "nat_gw_eip_a" {
   domain = "vpc"
 
   tags = {
-    Name = "instructor-alb-ngw-eip-a"
+    Name = "${var.naming_prefix}-ngw-eip-a"
   }
 }
 
@@ -21,7 +21,7 @@ resource "aws_eip" "nat_gw_eip_b" {
   domain = "vpc"
 
   tags = {
-    Name = "instructor-alb-ngw-eip-b"
+    Name = "${var.naming_prefix}-ngw-eip-b"
   }
 }
 
@@ -31,7 +31,7 @@ resource "aws_nat_gateway" "nat_gw_zone_a" {
   subnet_id     = aws_subnet.public_subnet_a.id
 
   tags = {
-    Name = "instructor-alb-ngw-az-a"
+    Name = "${var.naming_prefix}-ngw-az-a"
   }
 
   // To ensure proper ordering, it is recommended to add an explicit dependency on the Internet Gateway for the VPC.
@@ -44,7 +44,7 @@ resource "aws_nat_gateway" "nat_gw_zone_b" {
   subnet_id     = aws_subnet.public_subnet_b.id
 
   tags = {
-    Name = "instructor-alb-ngw-az-b"
+    Name = "${var.naming_prefix}-ngw-az-b"
   }
 
   // To ensure proper ordering, it is recommended to add an explicit dependency on the Internet Gateway for the VPC.

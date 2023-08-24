@@ -4,7 +4,7 @@ resource "aws_vpc" "vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "instructor-alb-vpc"
+    Name = "${var.naming_prefix}-alb-vpc"
   }
 }
 
